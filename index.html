@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>ضريبتي - ترحيب + الحاسبة + الميزات</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background-color: #1e3a8a;
+      color: white;
+    }
+
+    .page { display: none; }
+    .active { display: block; }
+
+    .welcome-page {
+      background: linear-gradient(to bottom, #0f172a, #1e293b);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .welcome-page h1 { font-size: 3rem; margin-bottom: 10px; }
+    .welcome-page h2 { font-size: 1.2rem; font-weight: normal; line-height: 2; }
+
+    .welcome-page button {
+      padding: 12px 24px;
+      margin-top: 20px;
+      background-color: #facc15;
+      color: #1e293b;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    h1, h2 { color: #facc15; }
+
+    input {
+      width: 80%;
+      max-width: 400px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .calculate-btn {
+      background-color: #facc15;
+      color: #1e3a8a;
+      padding: 12px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+
+    .feature-list {
+      text-align: right;
+      margin-top: 30px;
+    }
+
+    .feature-item {
+      background-color: #e0f7fa;
+      color: #1e3a8a;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- صفحة الترحيب -->
+  <div class="welcome-page page active" id="welcomePage">
+    <h1>مرحبًا محمد 😊</h1>
+    <h2>
+      هذا المشروع عبارة عن صفحة ويب تحسب ضريبة الأرباح للمشاريع التجارية والصناعية<br>
+      فخورة أعرضه لك 💛
+    </h2>
+    <button onclick="goToMain()">ابدأ</button>
+  </div>
+
+  <!-- الصفحة الرئيسية -->
+  <div class="page" id="mainPage">
+
+    <!-- واجهة الموقع -->
+    <section>
+      <h1 style="font-size: 60px;">ضريبتي</h1>
+      <p style="font-size: 22px; line-height: 1.8;">
+        أداة ذكية تسهّل عليك إدخال الإيرادات والمصروفات،<br>
+        وتُحدّد تلقائيًا وعاءك الضريبي بدون تعقيد.
+      </p>
+    </section>
+
+    <!-- الحاسبة -->
+    <section style="background-color: #203c9a;">
+      <h2>حاسبة الضريبة</h2>
+      <div class="form-group">
+        <label>الإيرادات (بالريال):</label>
+        <input type="number" id="revenue" placeholder="مثال: 150000">
+      </div>
+      <div class="form-group">
+        <label>المصروفات (بالريال):</label>
+        <input type="number" id="expenses" placeholder="مثال: 50000">
+      </div>
+      <button class="calculate-btn" onclick="calculateTax()">احسب الآن</button>
+      <div class="result" id="result"></div>
+    </section>
+
+    <!-- الميزات -->
+    <section>
+      <h2>ماذا يقدم موقع ضريبتي؟</h2>
+      <div class="feature-list">
+        <div class="feature-item">
+          <strong>حاسبة ضريبية تفاعلية</strong><br>
+          تدخل بياناتك وتحصل على وعاءك الضريبي فوراً.
+        </div>
+        <div class="feature-item">
+          <strong>نماذج جاهزة</strong><br>
+          إقرارات ضريبية جاهزة للطباعة أو التعبئة.
+        </div>
+        <div class="feature-item">
+          <strong>شروحات مبسطة</strong><br>
+          دروس ومحتوى تعليمي مخصص للطلاب وغير المحاسبين.
+        </div>
+        <div class="feature-item">
+          <strong>قسم طلاب الجامعة</strong><br>
+          موارد، تمارين، أدوات مساعدة للمواد الضريبية والمالية.
+        </div>
+      </div>
+    </section>
+
+    <footer>&copy; 2025 ضريبتي - جميع الحقوق محفوظة</footer>
+  </div>
+
+  <script>
+    function goToMain() {
+      document.getElementById("welcomePage").classList.remove("active");
+      document.getElementById("mainPage").classList.add("active");
+    }
+
+    function calculateTax() {
+      const revenue = parseFloat(document.getElementById("revenue").value) || 0;
+      const expenses = parseFloat(document.getElementById("expenses").value) || 0;
+      const taxable = revenue - expenses;
+
+      document.getElementById("result").innerHTML = `
+        <p><strong>إجمالي الإيرادات:</strong> ${revenue.toFixed(2)} ريال</p>
+        <p><strong>إجمالي المصروفات:</strong> ${expenses.toFixed(2)} ريال</p>
+        <p><strong>وعاءك الضريبي:</strong> ${taxable.toFixed(2)} ريال</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
